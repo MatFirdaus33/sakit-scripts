@@ -1,0 +1,64 @@
+local hurt = false
+local player = PlayerPedid()
+local injuredcounter = 0
+Citizen.CreateThread(funtion()
+while true do
+if GetEntityHealth(GetplayerPed(-1)) <= 159 then
+sethurt()
+StillInjured = true
+eiseif hurt and GetEntityHealth(GetplayerPed(-1)) > 159 then
+setNotHurt()
+end
+end)
+
+funtion setHurt()
+hurt = true
+RequestAnimset("move_M@injured")
+SetPedMovementClipset(GetPlayerPed(-1), "move_m@injured", true)
+end
+
+Citizen.CreateThread(function()
+   while true do
+    if injuredcounter == 20000 then
+    ApplyDamageToPed(GetPlayerPed(-1), 23, false)
+    elseif injuredcounter ==36000  then 
+    local ped = GetPlayerPed(-1)
+    local currentHealth = GetEntityHealth(ped)
+    GetEntityHealth(ped, currentHealth - 5)
+    elseif injuredcounter ==54000 then --try 5400
+      Applydamagetoped(player,800,false)
+      end
+      Citizen.wait(1000)
+        end
+      end)
+    
+    Citizen.CreateThread(funtion()
+      while true do 
+       Citizen.Wait(0)
+       
+       if stillinjured then
+       injuredcounter = injuredcounter + 1
+       else
+        Citizen.wait(1000)
+              end
+           end
+         end)
+         
+         funtion displayNotification(text)
+           setnotificationtextentry( "STRING: )
+           addtextcomponentstring( text )
+           drawnotification(false, false)
+           end
+           
+           
+           funtion setnothurt()
+           hurt = false
+           stillinjured = false
+           injuredcounter = 0
+           ResetPedMovementClipset(GetPlayerped(-1))
+           ResetPedweaponMovementClipset(GetplayerPed(-1))
+           ResetPedStrafeclipset(GetPlayerPed(-1))
+           SetPlayerHealthRechaargeMultiplier(playerid(), 0.0)
+           end 
+           
+         
